@@ -1,0 +1,4 @@
+Se conecto ('127.0.0.1', 57244)
+peticion dd
+peticion ff
+peticion salir
