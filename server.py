@@ -10,16 +10,28 @@ def Main():
     print("Esperando coneccion")
     conn, addr = mySocket.accept()
     file.write("Se conecto " + str(addr)+"\n")
+    file.close()
+    print("Conectado al cliente")
     print("Peticion salir -> cerrar coneccion")
     while True:
             data = conn.recv(1024).decode()
+            file = open("log.txt", "a")
             file.write("peticion"+" "+str(data)+"\n")
+            file.close()
             if(data=="salir"):
-                break
+                print("se cerró la conección con el cliente")
+                print("------------------------------------")
+                conn.close()
+                print("Esperando coneccion")
+                conn, addr = mySocket.accept()
+                print("Conectado al cliente")
+                print("Peticion salir -> cerrar coneccion")
+                file = open("log.txt", "a")
+                file.write("Se conecto " + str(addr)+"\n")
+                file.close()
+                continue
             data= "Se realizo la peticion"+" " +str(data)
             conn.send(data.encode())
-
-    file.close()
     conn.close()
 
 if __name__ == '__main__':

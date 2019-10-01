@@ -1,4 +1,17 @@
-Se conecto ('127.0.0.1', 57244)
-peticion dd
-peticion ff
+Se conecto ('127.0.0.1', 55696)
+peticion aaa
+peticion ssss
+peticion dddd
+peticion salir
+Se conecto ('127.0.0.1', 55698)
+peticion aaaa
+peticion ssssssssssss
+peticion salir
+Se conecto ('127.0.0.1', 55701)
+peticion aaa
+peticion sss
+peticion salir
+Se conecto ('127.0.0.1', 55706)
+peticion dhfjksdhfsdk
+peticion askgfsvgfsadf
 peticion salir
