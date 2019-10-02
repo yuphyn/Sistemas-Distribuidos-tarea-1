@@ -1,6 +1,7 @@
 import socket
 import threading
 import time
+import random
 
 class T1 (threading.Thread):
     def __init__(self):
@@ -45,7 +46,8 @@ class T2 (threading.Thread):
             data = conn.recv(1024).decode()
 
             ####Envio a nodo
-            port2 = 4000
+
+            port2 = random.choice([4000,4500,4700])
             mySocket2 = socket.socket()
             mySocket2.connect((host,port2))
             message = "soy el cliente"

@@ -36,7 +36,22 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        'hola'
+        host = "127.0.0.1"
+        port = 4700 #Puerto
+        mySocket = socket.socket()
+        mySocket.bind((host,port))
+        mySocket.listen(5) #CAntidad de connecciones permitidas
+        print("Esperando conección")
+        conn, addr = mySocket.accept()
+        print("Conectado al cliente")
+        while True:
+            data = conn.recv(1024).decode()
+            conn.send("soy el nodo 3".encode())
+            conn.close()
+            data= "mensaje del cliente: "+str(data)
+            print("Conección cerrada")
+            print("Esperando cliente")
+            conn, addr = mySocket.accept()
 
 t1 = T1()
 t2 = T2()

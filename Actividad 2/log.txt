@@ -1,2 +1,0 @@
-Se conecto a: ('127.0.0.1', 51701)
-mensaje del cliente:  soy el cliente
