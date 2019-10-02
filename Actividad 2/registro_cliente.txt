@@ -1,1 +1,1 @@
-El servidor guardo el mensaje en el nodo: soy el nodo 1
+Guardado exitoso en el datanode 2
