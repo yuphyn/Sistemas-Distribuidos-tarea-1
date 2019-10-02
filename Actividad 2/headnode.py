@@ -1,6 +1,7 @@
 import socket
 import threading
 import time
+import datetime
 import random
 
 class T1 (threading.Thread):
@@ -9,6 +10,8 @@ class T1 (threading.Thread):
         print ('I am T1')
 
     def run(self):
+        file = open("hearbeat_server.txt", "w")
+        file.close()
         MCAST_GRP = '224.1.1.1'
         MCAST_PORT = 5007
         # regarding socket.IP_MULTICAST_TTL
@@ -19,14 +22,25 @@ class T1 (threading.Thread):
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
-        sock.sendto("robot".encode(), (MCAST_GRP, MCAST_PORT))
+        sock.settimeout(1)
         
         while True:
             consulta = "estan operativos?"
             sent = sock.sendto(consulta.encode('ascii'), (MCAST_GRP,MCAST_PORT))
-            data1, server1 = sock.recvfrom(1024)
-            print(server1,' está: ',data1)
             time.sleep(5)
+            while True:
+                try:
+                    data1, server1 = sock.recvfrom(1024)
+                    ts = time.time()
+                    hora = datetime.datetime.fromtimestamp(ts).strftime("%d/%m/%Y - %H:%M:%S --- ")
+                    save = hora+data1.decode()+"\n"
+                    file = open("hearbeat_server.txt", "a")
+                    file.write(save)
+                    file.close()
+                except (socket.timeout):
+                    break
+
+                
 
 class T2 (threading.Thread):
     def __init__(self):
@@ -50,19 +64,19 @@ class T2 (threading.Thread):
             port2 = random.choice([4000,4500,4700])
             mySocket2 = socket.socket()
             mySocket2.connect((host,port2))
-            message = "soy el cliente"
-            mySocket2.send(message.encode())
-            data = mySocket2.recv(1024).decode()
+            mySocket2.send(data.encode())
+
+            respuesta = mySocket2.recv(1024).decode()
             mySocket2.close()
 
-            file = open("respuesta.txt", "a")
-            file.write(data+"\n")
+            file = open("registro_server.txt", "a")
+            file.write("Guardado en el "+respuesta+"\n")
             file.close()
 
             ######
-            conn.send(data.encode())
+            send_to_client = "Guardado exitoso en el "+respuesta
+            conn.send(send_to_client.encode())
             conn.close()
-            data= "mensaje del cliente: "+str(data)
             print("Conección cerrada")
             print("Esperando cliente")
             conn, addr = mySocket.accept()

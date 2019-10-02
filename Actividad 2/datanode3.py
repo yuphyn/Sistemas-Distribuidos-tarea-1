@@ -27,7 +27,7 @@ class T1 (threading.Thread):
 
         while True:
             data, address = sock.recvfrom(1024)
-            respuesta = "sep"
+            respuesta = "datanode 3: active"
             sock.sendto(respuesta.encode('ascii'), address)
 
 class T2 (threading.Thread):
@@ -37,7 +37,7 @@ class T2 (threading.Thread):
 
     def run(self):
         host = "127.0.0.1"
-        port = 4000 #Puerto
+        port = 4700 #Puerto
         mySocket = socket.socket()
         mySocket.bind((host,port))
         mySocket.listen(5) #CAntidad de connecciones permitidas
@@ -46,16 +46,15 @@ class T2 (threading.Thread):
         print("Conectado al cliente")
         while True:
             data = conn.recv(1024).decode()
-            conn.send("soy el nodo 1".encode())
+            conn.send("datanode 3".encode())
             conn.close()
             data= "mensaje del cliente: "+str(data)
-            file = open("data.txt", "a")
+            file = open("respuesta.txt", "a")
             file.write(data+"\n")
             file.close()
             print("Conección cerrada")
             print("Esperando cliente")
             conn, addr = mySocket.accept()
-
 
 t1 = T1()
 t2 = T2()

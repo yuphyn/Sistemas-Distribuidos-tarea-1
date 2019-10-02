@@ -6,12 +6,12 @@ def Main():
     mySocket = socket.socket()
     mySocket.connect((host,port))
 
-    message = "soy el cliente"
+    message = "Hola, soy el cliente"
     mySocket.send(message.encode())
     data = mySocket.recv(1024).decode()
     print(data)
     file = open("registro_cliente.txt", "w")
-    file.write("El servidor guardo el mensaje en el nodo: "+data+"\n")
+    file.write(data+"\n")
     file.close()
     mySocket.close()
 
