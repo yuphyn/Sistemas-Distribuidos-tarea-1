@@ -33,7 +33,33 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        'hola'
+        host = "127.0.0.1"
+        port = 5000 #Puerto
+        mySocket = socket.socket()
+        mySocket.bind((host,port))
+        mySocket.listen(5) #CAntidad de connecciones permitidas
+        print("Esperando conección")
+        conn, addr = mySocket.accept()
+        print("Conectado al cliente")
+        while True:
+            data = conn.recv(1024).decode()
+
+            ####Envio a nodo
+            port2 = 4000
+            mySocket2 = socket.socket()
+            mySocket2.connect((host,port2))
+            message = "soy el cliente"
+            mySocket2.send(message.encode())
+            data = mySocket2.recv(1024).decode()
+            mySocket2.close()
+
+            ######
+            conn.send(data.encode())
+            conn.close()
+            data= "mensaje del cliente: "+str(data)
+            print("Conección cerrada")
+            print("Esperando cliente")
+            conn, addr = mySocket.accept()
 
 t1 = T1()
 t2 = T2()
