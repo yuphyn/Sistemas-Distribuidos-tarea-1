@@ -55,6 +55,10 @@ class T2 (threading.Thread):
             data = mySocket2.recv(1024).decode()
             mySocket2.close()
 
+            file = open("respuesta.txt", "a")
+            file.write(data+"\n")
+            file.close()
+
             ######
             conn.send(data.encode())
             conn.close()
