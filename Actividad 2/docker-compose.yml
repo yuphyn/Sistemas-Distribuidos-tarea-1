@@ -1,0 +1,73 @@
+version: "3"
+
+
+services:
+  
+  headnode:
+   
+    build: 
+      context: ./headnode/
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ./headnode:/headnode/
+
+    network_mode: host
+
+    command: python /headnode/headnode.py
+
+  client:
+   
+    build: 
+      context: ./client/
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./client:/client/
+
+    command: python /client/client.py
+
+    depends_on:
+      - headnode
+
+  datanode1:
+   
+    build: 
+      context: ./datanode1/
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./datanode1:/datanode1/
+
+    command: python /datanode1/datanode1.py
+
+    depends_on:
+      - headnode
+
+  datanode2:
+   
+    build: 
+      context: ./datanode2/
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./datanode2:/datanode2/
+
+    command: python /datanode2/datanode2.py
+
+    depends_on:
+      - headnode
+
+  datanode3:
+   
+    build: 
+      context: ./datanode3/
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./datanode3:/datanode3/
+
+    command: python /datanode3/datanode3.py
+
+    depends_on:
+      - headnode
