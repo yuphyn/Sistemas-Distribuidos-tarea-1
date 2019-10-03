@@ -39,11 +39,11 @@ class T1 (threading.Thread):
                     ts = time.time()
                     data1=data1.decode()
                     if data1== "datanode 1: active":
-                        puertos.append(4000)
+                        puertos.append(['224.1.1.3',4000])
                     if data1== "datanode 2: active":
-                        puertos.append(4500)
+                        puertos.append(['224.1.1.4',4500])
                     if data1== "datanode 3: active":
-                        puertos.append(4700)
+                        puertos.append(['224.1.1.5',4700])
                     hora = datetime.datetime.fromtimestamp(ts).strftime("%d/%m/%Y - %H:%M:%S --- ")
                     save = hora+data1+"\n"
                     file = open("hearbeat_server.txt", "a")
@@ -75,10 +75,11 @@ class T2 (threading.Thread):
             data = conn.recv(1024).decode()
 
             ####Envio a nodo
-
-            port2 = random.choice(puertos)
+            var=random.choice(puertos)
+            port2 = var[1]
+            host2 = var[0]
             mySocket2 = socket.socket()
-            mySocket2.connect((host,port2))
+            mySocket2.connect((host2,port2))
             mySocket2.send(data.encode())
 
             respuesta = mySocket2.recv(1024).decode()

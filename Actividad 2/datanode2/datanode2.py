@@ -9,7 +9,7 @@ class T1 (threading.Thread):
         print ('I am T1')
 
     def run(self):
-        MCAST_GRP = '224.1.1.1'
+        MCAST_GRP = '224.1.1.4'
         MCAST_PORT = 5007
         IS_ALL_GROUPS = True
 
