@@ -4,6 +4,7 @@ import time
 import datetime
 import random
 
+puertos=[]
 class T1 (threading.Thread):
     def __init__(self):
         super(T1 , self).__init__(name="T1 thread")
@@ -14,6 +15,7 @@ class T1 (threading.Thread):
         file.close()
         MCAST_GRP = '224.1.1.1'
         MCAST_PORT = 5007
+        global puertos
         # regarding socket.IP_MULTICAST_TTL
         # ---------------------------------
         # for all packets sent, after two hops on the network the packet will not 
@@ -27,16 +29,27 @@ class T1 (threading.Thread):
         while True:
             consulta = "estan operativos?"
             sent = sock.sendto(consulta.encode('ascii'), (MCAST_GRP,MCAST_PORT))
+            
             time.sleep(5)
+            puertos=[]
+
             while True:
                 try:
                     data1, server1 = sock.recvfrom(1024)
                     ts = time.time()
+                    data1=data1.decode()
+                    if data1== "datanode 1: active":
+                        puertos.append(4000)
+                    if data1== "datanode 2: active":
+                        puertos.append(4500)
+                    if data1== "datanode 3: active":
+                        puertos.append(4700)
                     hora = datetime.datetime.fromtimestamp(ts).strftime("%d/%m/%Y - %H:%M:%S --- ")
-                    save = hora+data1.decode()+"\n"
+                    save = hora+data1+"\n"
                     file = open("hearbeat_server.txt", "a")
                     file.write(save)
                     file.close()
+                    print("los puertos"+ str(puertos))
                 except (socket.timeout):
                     break
 
@@ -50,10 +63,12 @@ class T2 (threading.Thread):
     def run(self):
         host = "127.0.0.1"
         port = 5000 #Puerto
+        global puertos
         mySocket = socket.socket()
         mySocket.bind((host,port))
         mySocket.listen(5) #CAntidad de connecciones permitidas
         print("Esperando conección")
+        print (puertos)
         conn, addr = mySocket.accept()
         print("Conectado al cliente")
         while True:
@@ -61,7 +76,7 @@ class T2 (threading.Thread):
 
             ####Envio a nodo
 
-            port2 = random.choice([4000,4500,4700])
+            port2 = random.choice(puertos)
             mySocket2 = socket.socket()
             mySocket2.connect((host,port2))
             mySocket2.send(data.encode())

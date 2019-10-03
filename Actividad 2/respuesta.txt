@@ -1,1 +1,6 @@
 soy el nodo 1
+mensaje del cliente: Hola, soy el cliente
+mensaje del cliente: Hola, soy el cliente
+mensaje del cliente: Hola, soy el cliente
+mensaje del cliente: Hola, soy el cliente
+mensaje del cliente: Hola, soy el cliente
