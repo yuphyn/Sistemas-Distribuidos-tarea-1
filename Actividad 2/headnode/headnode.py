@@ -67,10 +67,12 @@ class T2 (threading.Thread):
         mySocket = socket.socket()
         mySocket.bind((host,port))
         mySocket.listen(5) #CAntidad de connecciones permitidas
-        print("Esperando conección")
+        print("Esperando conexión")
         print (puertos)
         conn, addr = mySocket.accept()
         print("Conectado al cliente")
+        file = open("registro_server.txt", "w")
+        file.close()
         while True:
             data = conn.recv(1024).decode()
 

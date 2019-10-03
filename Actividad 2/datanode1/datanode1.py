@@ -44,6 +44,8 @@ class T2 (threading.Thread):
         print("Esperando conección")
         conn, addr = mySocket.accept()
         print("Conectado al cliente")
+        file = open("data.txt", "w")
+        file.close()
         while True:
             data = conn.recv(1024).decode()
             conn.send("datanode 1".encode())

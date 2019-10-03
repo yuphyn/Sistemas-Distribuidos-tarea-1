@@ -24,6 +24,8 @@ services:
 
     volumes:
       - ./client:/client/
+    
+    network_mode: host
 
     command: python /client/client.py
 
@@ -39,6 +41,8 @@ services:
     volumes:
       - ./datanode1:/datanode1/
 
+    network_mode: host
+
     command: python /datanode1/datanode1.py
 
     depends_on:
@@ -53,6 +57,8 @@ services:
     volumes:
       - ./datanode2:/datanode2/
 
+    network_mode: host
+
     command: python /datanode2/datanode2.py
 
     depends_on:
@@ -66,6 +72,8 @@ services:
 
     volumes:
       - ./datanode3:/datanode3/
+
+    network_mode: host
 
     command: python /datanode3/datanode3.py
 
