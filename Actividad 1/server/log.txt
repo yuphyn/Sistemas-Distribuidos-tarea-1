@@ -1,0 +1,2 @@
+Se conecto a: ('127.0.0.1', 40868)
+mensaje del cliente:  Hola, soy el cliente

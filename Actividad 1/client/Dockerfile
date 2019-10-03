@@ -7,5 +7,5 @@ COPY client.py /client/
 
 # I would like to introduce something new, the 'WORKDIR' command.
 # This command changes the base directory of your image.
-# Here we define '/cliente/' as base directory.
+# Here we define '/client/' as base directory (where all commands will be executed).
 WORKDIR /client/
