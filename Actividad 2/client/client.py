@@ -1,7 +1,7 @@
 import socket
 import time
 def Main():
-    time.sleep(3)
+    time.sleep(6)
     host = '127.0.0.1'
     port = 5000
     mySocket = socket.socket()

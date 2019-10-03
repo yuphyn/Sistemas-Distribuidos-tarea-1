@@ -16,22 +16,6 @@ services:
 
     command: python /headnode/headnode.py
 
-  client:
-   
-    build: 
-      context: ./client/
-      dockerfile: Dockerfile
-
-    volumes:
-      - ./client:/client/
-    
-    network_mode: host
-
-    command: python /client/client.py
-
-    depends_on:
-      - headnode
-
   datanode1:
    
     build: 
@@ -76,6 +60,22 @@ services:
     network_mode: host
 
     command: python /datanode3/datanode3.py
+
+    depends_on:
+      - headnode
+
+  client:
+   
+    build: 
+      context: ./client/
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./client:/client/
+    
+    network_mode: host
+
+    command: python /client/client.py
 
     depends_on:
       - headnode

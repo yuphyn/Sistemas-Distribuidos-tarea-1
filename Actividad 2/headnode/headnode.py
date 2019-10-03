@@ -85,6 +85,7 @@ class T2 (threading.Thread):
             mySocket2.send(data.encode())
 
             respuesta = mySocket2.recv(1024).decode()
+            print("esta es la respuesta:",respuesta)
             mySocket2.close()
 
             file = open("registro_server.txt", "a")
