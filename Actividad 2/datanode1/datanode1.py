@@ -9,7 +9,7 @@ class T1 (threading.Thread):
         print ('I am T1')
 
     def run(self):
-        MCAST_GRP = '224.1.1.3'
+        MCAST_GRP = '224.1.1.1'
         MCAST_PORT = 5007
         IS_ALL_GROUPS = True
 
@@ -36,7 +36,7 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        host = "127.0.0.1"
+        host = "127.1.1.1"
         port = 4000 #Puerto
         mySocket = socket.socket()
         mySocket.bind((host,port))

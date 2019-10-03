@@ -39,11 +39,11 @@ class T1 (threading.Thread):
                     ts = time.time()
                     data1=data1.decode()
                     if data1== "datanode 1: active":
-                        puertos.append(['224.1.1.3',4000])
+                        puertos.append(['127.1.1.1',4000])
                     if data1== "datanode 2: active":
-                        puertos.append(['224.1.1.4',4500])
+                        puertos.append(['127.1.1.2',4500])
                     if data1== "datanode 3: active":
-                        puertos.append(['224.1.1.5',4700])
+                        puertos.append(['127.1.1.3',4700])
                     hora = datetime.datetime.fromtimestamp(ts).strftime("%d/%m/%Y - %H:%M:%S --- ")
                     save = hora+data1+"\n"
                     file = open("hearbeat_server.txt", "a")
