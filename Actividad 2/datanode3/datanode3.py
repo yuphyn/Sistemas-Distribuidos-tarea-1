@@ -36,12 +36,12 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        host = "127.1.1.3"
+        host = '0.0.0.0'
         port = 4700 #Puerto
         mySocket = socket.socket()
         mySocket.bind((host,port))
         mySocket.listen(5) #CAntidad de connecciones permitidas
-        print("Esperando conección")
+        print("Esperando conexión")
         conn, addr = mySocket.accept()
         print("Conectado al cliente")
         file = open("data.txt", "w")
@@ -51,7 +51,7 @@ class T2 (threading.Thread):
             conn.send("datanode 3".encode())
             conn.close()
             data= "mensaje del cliente: "+str(data)
-            file = open("respuesta.txt", "a")
+            file = open("data.txt", "a")
             file.write(data+"\n")
             file.close()
             print("Conección cerrada")

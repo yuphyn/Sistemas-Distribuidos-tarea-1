@@ -36,12 +36,12 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        host = "127.1.1.2"
+        host = '0.0.0.0'
         port = 4500 #Puerto
         mySocket = socket.socket()
         mySocket.bind((host,port))
         mySocket.listen(5) #CAntidad de connecciones permitidas
-        print("Esperando conección")
+        print("Esperando conexión")
         conn, addr = mySocket.accept()
         print("Conectado al cliente")
         file = open("data.txt", "w")

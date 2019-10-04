@@ -1,25 +1,33 @@
 version: "3"
 
-
 services:
-  
+
   headnode:
-   
+
     build: 
-      context: ./headnode/
+      context: ./headnode
       dockerfile: Dockerfile
-    
+
     volumes:
       - ./headnode:/headnode/
 
+    command: python headnode.py
+
     network_mode: host
 
-    command: python /headnode/headnode.py
+    ports:
+      - 5000-5007:5000-5007
+
+    depends_on:
+      - datanode1
+      - datanode2
+      - datanode3
 
   datanode1:
-   
+
     build: 
-      context: ./datanode1/
+
+      context: ./datanode1
       dockerfile: Dockerfile
 
     volumes:
@@ -29,13 +37,13 @@ services:
 
     command: python /datanode1/datanode1.py
 
-    depends_on:
-      - headnode
+    ports:
+      - 4000:4000
 
   datanode2:
-   
+
     build: 
-      context: ./datanode2/
+      context: ./datanode2
       dockerfile: Dockerfile
 
     volumes:
@@ -45,13 +53,13 @@ services:
 
     command: python /datanode2/datanode2.py
 
-    depends_on:
-      - headnode
+    ports:
+      - 4500:4500
 
   datanode3:
-   
+
     build: 
-      context: ./datanode3/
+      context: ./datanode3
       dockerfile: Dockerfile
 
     volumes:
@@ -61,21 +69,24 @@ services:
 
     command: python /datanode3/datanode3.py
 
-    depends_on:
-      - headnode
+    ports:
+      - 4700:4700
 
   client:
-   
+
     build: 
-      context: ./client/
+      context: ./client
       dockerfile: Dockerfile
 
     volumes:
       - ./client:/client/
-    
+
     network_mode: host
 
     command: python /client/client.py
 
+    ports:
+      - 5000:5000
+      
     depends_on:
       - headnode

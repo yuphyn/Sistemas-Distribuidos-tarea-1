@@ -1,8 +1,8 @@
 import socket
 import time
 def Main():
-    time.sleep(6)
-    host = '127.0.0.1'
+    time.sleep(6) #esperar hasta que se conecten los datanodes
+    host = '0.0.0.0'
     port = 5000
     mySocket = socket.socket()
     mySocket.connect((host,port))

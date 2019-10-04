@@ -61,7 +61,7 @@ class T2 (threading.Thread):
         print ('I am T2')
 
     def run(self):
-        host = "127.0.0.1"
+        host = '0.0.0.0'
         port = 5000 #Puerto
         global puertos
         mySocket = socket.socket()
